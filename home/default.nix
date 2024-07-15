@@ -52,6 +52,8 @@
           hyprpicker
           nixfmt-rfc-style
           sops
+          grim
+          slurp
 
           # Libraries and backends
           nixd

@@ -111,6 +111,8 @@
       bind = [
         "$mainMod, S, exec, alacritty"
         "$mainMod, A, exec, thunar"
+        "$mainMod SHIFT, S, exec, grim -g \"$(slurp)\" | wl-copy"
+
         "$mainMod, Q, killactive"
         "$mainMod, M, exit,"
         "$mainMod, Z, togglefloating,"
