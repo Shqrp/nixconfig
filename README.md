@@ -14,10 +14,10 @@ This is the configuration I use for both my main machines. It's based around the
 - **Wallpaper Utility**: [Hyprpaper](https://github.com/hyprwm/hyprpaper)
 - **Idle Daemon**: [Hypridle](https://github.com/hyprwm/hypridle)
 
-- **Terminal**: [Alacritty](https://github.com/alacritty/alacritty)
-- **Shell**: zsh with [oh-my-zsh](https://ohmyz.sh)
-- **Code Editor**: [VSCodium](https://vscodium.com)
-- **Wallpapers**: [Nordic Wallpapers](https://github.com/linuxdotexe/nordic-wallpapers)
++ **Terminal**: [Alacritty](https://github.com/alacritty/alacritty)
++ **Shell**: zsh with [oh-my-zsh](https://ohmyz.sh)
++ **Code Editor**: [VSCodium](https://vscodium.com)
++ **Wallpapers**: [Nordic Wallpapers](https://github.com/linuxdotexe/nordic-wallpapers)
 
 ## Directory structure
 
