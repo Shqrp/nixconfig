@@ -46,6 +46,21 @@
         ++ lib.optional (builtins.length displays == 2)
           "${(getDisplay 1).id},${(getDisplay 1).width}x${(getDisplay 1).height},${(getDisplay 0).width}x0,1";
 
+      env = [
+        "GDK_BACKEND,wayland,x11"
+        "SDL_VIDEODRIVER,wayland,x11"
+        "CLUTTER_BACKEND,wayland"
+        "QT_QPA_PLATFORM,wayland;xcb"
+        "LIBVA_DRIVER_NAME,nvidia"
+        "GBM_BACKEND,nvidia-drm"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "WLR_NO_HARDWARE_CURSORS,1"
+        "__NV_PRIME_RENDER_OFFLOAD,1"
+        "__VK_LAYER_NV_optimus,NVIDIA_only"
+        "PROTON_ENABLE_NGX_UPDATER,1"
+        "NVD_BACKEND,direct"
+      ];
+
       exec-once = [
         "${pkgs.wlr-randr}/bin/wlr-randr --output Unknown-1 --off" # disables weird Unknown-1 display
         "${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
