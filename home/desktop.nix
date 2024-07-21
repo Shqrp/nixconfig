@@ -126,7 +126,7 @@
       bind = [
         "$mainMod, S, exec, alacritty"
         "$mainMod, A, exec, thunar"
-        "$mainMod SHIFT, S, exec, grim -g \"$(slurp)\" | wl-copy"
+        "$mainMod SHIFT, S, exec, grim -g \"$(slurp)\" \"/home/shqrp/Screenshots/$(date +%Y-%m-%d\ %R:%S).png\""
 
         "$mainMod, Q, killactive"
         "$mainMod, M, exit,"
