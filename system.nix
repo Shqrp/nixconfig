@@ -32,6 +32,17 @@
     };
   };
 
+  system.autoUpgrade = {
+    enable = true;
+    flake = "/etc/nixos";
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "-L"
+    ];
+    dates = "weekly";
+  };
+
   networking.hostName = hostname;
   networking.networkmanager.enable = true;
 
