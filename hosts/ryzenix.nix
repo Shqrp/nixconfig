@@ -33,6 +33,15 @@
     ];
   };
 
+  fileSystems."/home/shqrp/Vienna" = {
+    device = "/dev/disk/by-uuid/98B6-27DB";
+    fsType = "exfat";
+    options = [
+      "uid=1000"
+      "gid=100"
+    ];
+  };
+
   swapDevices = [ { device = "/dev/disk/by-uuid/201313a4-c9a5-4cb2-89c5-bd6f22780542"; } ];
 
   networking.useDHCP = lib.mkDefault true;
