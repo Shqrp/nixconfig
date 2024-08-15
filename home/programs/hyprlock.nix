@@ -18,7 +18,7 @@
       };
 
       input-field = {
-        monitor = (getDisplay 1).id;
+        monitor = (getDisplay 0).id;
         size = "250, 60";
         outline_thickness = 2;
         dots_size = 0.2;
@@ -38,7 +38,7 @@
 
       label = [
         {
-          monitor = (getDisplay 1).id;
+          monitor = (getDisplay 0).id;
           text = ''cmd[update:1000] echo "$(date + "%H:%M:%S")"'';
           color = "$foreground";
           font_size = 120;
@@ -48,7 +48,7 @@
           valign = "top";
         }
         {
-          monitor = (getDisplay 1).id;
+          monitor = (getDisplay 0).id;
           text = "welcome to hell, $USER";
           color = "$foreground";
           font_size = 25;

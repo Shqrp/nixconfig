@@ -1,15 +1,15 @@
 {
-  inputs,
+  # inputs,
   displays,
   getDisplay,
-  system,
+  # system,
   ...
 }:
 
 {
   programs.waybar = {
     enable = true;
-    package = inputs.waybar.packages.${system}.waybar;
+    # package = inputs.waybar.packages.${system}.waybar;
     systemd.enable = true;
 
     settings =
@@ -100,7 +100,7 @@
       else
         [
           {
-            output = (getDisplay 1).id;
+            output = (getDisplay 0).id;
             height = 24;
             spacing = 4;
             modules-left = [ "hyprland/workspaces" ];
