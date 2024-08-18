@@ -56,6 +56,11 @@
         intelBusId = "PCI:0:2:0";
       };
     };
+
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
   };
   services.xserver.videoDrivers = [ "nvidia" ];
 
