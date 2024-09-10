@@ -9,7 +9,7 @@
   programs.vscode = {
     enable = true;
     package = pkgs-unstable.vscodium-fhs;
-    extensions = with inputs.nix-vscode-extensions.extensions.${system}.open-vsx; [
+    extensions = (with inputs.nix-vscode-extensions.extensions.${system}.open-vsx; [
       bradlc.vscode-tailwindcss
       dbaeumer.vscode-eslint
       denoland.vscode-deno
@@ -33,7 +33,7 @@
       tamasfe.even-better-toml
       usernamehw.errorlens
       yoavbls.pretty-ts-errors
-    ] ++ (with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
+    ]) ++ (with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
       ms-vscode.cpptools
     ]);
     userSettings = {
