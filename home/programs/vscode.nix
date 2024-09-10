@@ -9,33 +9,35 @@
   programs.vscode = {
     enable = true;
     package = pkgs-unstable.vscodium-fhs;
-    extensions = (with inputs.nix-vscode-extensions.extensions.${system}.open-vsx; [
-      bradlc.vscode-tailwindcss
-      dbaeumer.vscode-eslint
-      denoland.vscode-deno
-      dprint.dprint
-      eamodio.gitlens
-      esbenp.prettier-vscode
-      gruntfuggly.todo-tree
-      heybourn.headwind
-      jeanp413.open-remote-ssh
-      jnoortheen.nix-ide
-      marlosirapuan.nord-deep
-      miguelsolorio.fluent-icons
-      mikestead.dotenv
-      ms-python.python
-      ms-toolsai.jupyter
-      ms-vscode.hexeditor
-      ms-vscode.cmake-tools
-      prisma.prisma
-      rust-lang.rust-analyzer
-      serayuzgur.crates
-      tamasfe.even-better-toml
-      usernamehw.errorlens
-      yoavbls.pretty-ts-errors
-    ]) ++ (with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
-      ms-vscode.cpptools
-    ]);
+    extensions =
+      (with inputs.nix-vscode-extensions.extensions.${system}.open-vsx; [
+        bradlc.vscode-tailwindcss
+        dbaeumer.vscode-eslint
+        denoland.vscode-deno
+        dprint.dprint
+        eamodio.gitlens
+        esbenp.prettier-vscode
+        gruntfuggly.todo-tree
+        heybourn.headwind
+        jeanp413.open-remote-ssh
+        jnoortheen.nix-ide
+        marlosirapuan.nord-deep
+        miguelsolorio.fluent-icons
+        mikestead.dotenv
+        ms-python.python
+        ms-toolsai.jupyter
+        ms-vscode.hexeditor
+        ms-vscode.cmake-tools
+        prisma.prisma
+        rust-lang.rust-analyzer
+        serayuzgur.crates
+        tamasfe.even-better-toml
+        usernamehw.errorlens
+        yoavbls.pretty-ts-errors
+      ])
+      ++ (with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
+        ms-vscode.cpptools
+      ]);
     userSettings = {
       "workbench.startupEditor" = "none";
       "workbench.colorTheme" = "Nord Deep";
