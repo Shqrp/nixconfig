@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   inputs,
   system,
   hostname,
@@ -93,6 +94,7 @@
         inherit hostname;
         inherit displays;
         inherit getDisplay;
+        inherit pkgs-unstable;
       };
   };
 }

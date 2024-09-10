@@ -1,6 +1,6 @@
 {
   inputs,
-  pkgs,
+  pkgs-unstable,
   system,
   ...
 }:
@@ -8,28 +8,34 @@
 {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium-fhs;
+    package = pkgs-unstable.vscodium-fhs;
     extensions = with inputs.nix-vscode-extensions.extensions.${system}.open-vsx; [
       bradlc.vscode-tailwindcss
       dbaeumer.vscode-eslint
       denoland.vscode-deno
+      dprint.dprint
+      eamodio.gitlens
       esbenp.prettier-vscode
       gruntfuggly.todo-tree
+      heybourn.headwind
       jeanp413.open-remote-ssh
+      jnoortheen.nix-ide
+      marlosirapuan.nord-deep
+      miguelsolorio.fluent-icons
       mikestead.dotenv
+      ms-python.python
+      ms-toolsai.jupyter
       ms-vscode.hexeditor
+      ms-vscode.cmake-tools
       prisma.prisma
       rust-lang.rust-analyzer
       serayuzgur.crates
       tamasfe.even-better-toml
       usernamehw.errorlens
-      jnoortheen.nix-ide
-      dprint.dprint
-      heybourn.headwind
       yoavbls.pretty-ts-errors
-      marlosirapuan.nord-deep
-      miguelsolorio.fluent-icons
-    ];
+    ] ++ (with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
+      ms-vscode.cpptools
+    ]);
     userSettings = {
       "workbench.startupEditor" = "none";
       "workbench.colorTheme" = "Nord Deep";
