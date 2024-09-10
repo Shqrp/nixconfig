@@ -78,5 +78,7 @@
     package = inputs.nix-ld-rs.packages.${system}.nix-ld-rs;
   };
 
+  hardware.opentabletdriver.enable = true;
+
   system.stateVersion = "23.11";
 }
