@@ -67,11 +67,14 @@
           mongodb-compass
           nixd
           libclang
+          insomnia
 
           # Desktop applications
           spotify-qt
           firefox
           xfce.thunar
+          obsidian
+          pkgs-unstable.osu-lazer-bin
 
           kdePackages.breeze-icons
         ];
