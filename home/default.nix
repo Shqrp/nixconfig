@@ -57,7 +57,6 @@
           slurp
 
           # Libraries and backends
-          nixd
           xfce.thunar-volman
 
           # Developer stuff
@@ -66,6 +65,8 @@
           rustup
           gcc
           mongodb-compass
+          nixd
+          libclang
 
           # Desktop applications
           spotify-qt

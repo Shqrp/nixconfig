@@ -21,6 +21,7 @@
         heybourn.headwind
         jeanp413.open-remote-ssh
         jnoortheen.nix-ide
+        llvm-vs-code-extensions.vscode-clangd
         marlosirapuan.nord-deep
         miguelsolorio.fluent-icons
         mikestead.dotenv
@@ -35,9 +36,7 @@
         usernamehw.errorlens
         yoavbls.pretty-ts-errors
       ])
-      ++ (with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
-        ms-vscode.cpptools
-      ]);
+      ++ (with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace-release; []);
     userSettings = {
       "workbench.startupEditor" = "none";
       "workbench.colorTheme" = "Nord Deep";
