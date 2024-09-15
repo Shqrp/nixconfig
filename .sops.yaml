@@ -1,0 +1,7 @@
+keys:
+  - &shqrp age1ldf80j857vymtuw0hush0wxk63frfynj7fhmg2v55u0td7t6avvqs4cw7t
+creation_rules:
+  - path_regex: secrets/secrets.yaml$
+    key_groups:
+    - age:
+      - *shqrp
