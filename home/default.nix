@@ -59,7 +59,6 @@
 
           # Libraries and backends
           xfce.thunar-volman
-          gcr_4
 
           # Developer stuff
           deno
