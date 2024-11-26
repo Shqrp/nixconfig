@@ -4,8 +4,8 @@
   services.spotifyd = {
     enable = true;
     settings.global = {
-      username = "1qlzuykudenvmxvdggdwf1rcm";
-      password_cmd = "cat ${config.sops.secrets.spotify.path}";
+      # username = "1qlzuykudenvmxvdggdwf1rcm";
+      # password_cmd = "cat ${config.sops.secrets.spotify.path}";
       use_mpris = true;
       backend = "pulseaudio";
       device = "pipewire";
