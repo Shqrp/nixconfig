@@ -65,37 +65,29 @@
         "${pkgs.wlr-randr}/bin/wlr-randr --output Unknown-1 --off" # disables weird Unknown-1 display
         "${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
         "hyprctl setcursor graphite-light-nord 24"
-        "thunar --daemon"
+        "${pkgs.xfce.thunar}/bin/thunar --daemon"
         "${pkgs.blueman}/bin/blueman-applet"
       ];
 
       input.kb_layout = "it";
 
       general = {
-        gaps_in = 5;
-        gaps_out = 20;
         border_size = 2;
         "col.active_border" = "rgb(d8dee9) rgb(eceff4) 45deg";
         "col.inactive_border" = "rgb(4c566a)";
-        layout = "dwindle";
-        allow_tearing = false;
       };
 
       decoration = {
         rounding = 10;
         blur = {
-          enabled = true;
-          size = 3;
           passes = 1;
         };
-        drop_shadow = "yes";
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
+        shadow = {
+          color = "rgba(1a1a1aee)";
+        };
       };
 
       animations = {
-        enabled = "yes";
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
         animation = [
           "windows, 1, 7, myBezier"
@@ -108,26 +100,29 @@
       };
 
       dwindle = {
-        pseudotile = "yes";
-        preserve_split = "yes";
+        pseudotile = true;
+        preserve_split = true;
       };
 
-      # master.new_is_master = true;
-      gestures.workspace_swipe = "off";
-      misc.force_default_wallpaper = 0;
-      blurls = "launcher";
-
-      device = {
-        name = "epic-mouse-v1";
-        sensitivity = -0.5;
+      misc = {
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+        force_default_wallpaper = 0;
       };
+
+      layerrule = "blur, launcher";
+
+      # device = {
+      #   name = "epic-mouse-v1";
+      #   sensitivity = -0.5;
+      # };
 
       "$mainMod" = "SUPER";
 
       bind = [
         "$mainMod, S, exec, alacritty"
         "$mainMod, A, exec, thunar"
-        "$mainMod SHIFT, S, exec, grim -g \"$(slurp)\" \"/home/shqrp/Screenshots/$(date +%Y-%m-%d\ %R:%S).png\""
+        "$mainMod SHIFT, S, exec, grim -g \"$(slurp)\" \"/home/shqrp/Screenshots/$(date +%Y-%m-%d\\ %R:%S).png\""
 
         "$mainMod, Q, killactive"
         "$mainMod, M, exit,"
