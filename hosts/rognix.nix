@@ -40,10 +40,10 @@
   networking.useDHCP = lib.mkDefault true;
 
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
+      # driSupport = true;
+      # driSupport32Bit = true;
     };
 
     nvidia = {

@@ -42,15 +42,15 @@
     ];
   };
 
-  swapDevices = [ { device = "/dev/disk/by-uuid/201313a4-c9a5-4cb2-89c5-bd6f22780542"; } ];
+  swapDevices = [ { device = "/dev/disk/by-uuid/086424cb-de28-4691-9e9f-d6e7e7f36627"; } ];
 
   networking.useDHCP = lib.mkDefault true;
 
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
+      # driSupport = true;
+      # driSupport32Bit = true;
     };
 
     nvidia = {

@@ -75,10 +75,21 @@
 
   programs.nix-ld = {
     enable = true;
-    package = inputs.nix-ld-rs.packages.${system}.nix-ld-rs;
+    package = inputs.nix-ld.packages.${system}.nix-ld;
   };
 
-  hardware.opentabletdriver.enable = true;
+  hardware.opentabletdriver = {
+    enable = true;
+    package = inputs.opentabletdriver.packages.${system}.default;
+  };
+
+  # virtualisation.docker = {
+  #   enable = true;
+  #   rootless = {
+  #     enable = true;
+  #     setSocketVariable = true;
+  #   };
+  # };
 
   system.stateVersion = "23.11";
 }

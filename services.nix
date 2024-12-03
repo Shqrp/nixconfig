@@ -30,7 +30,7 @@
   };
 
   # Audio configuration
-  sound.enable = true;
+  # sound.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
