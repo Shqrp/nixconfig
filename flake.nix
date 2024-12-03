@@ -22,28 +22,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    hypridle.url = "github:hyprwm/hypridle";
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
       submodules = true;
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprpaper = {
-      url = "github:hyprwm/hyprpaper";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    # waybar = {
-    #   url = "github:Alexays/Waybar";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    hyprlock.url = "github:hyprwm/hyprlock";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
 
     opentabletdriver = {
       url = "github:OpenTabletDriver/opentabletdriver";

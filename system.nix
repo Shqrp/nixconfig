@@ -83,13 +83,13 @@
     package = inputs.opentabletdriver.packages.${system}.default;
   };
 
-  # virtualisation.docker = {
-  #   enable = true;
-  #   rootless = {
-  #     enable = true;
-  #     setSocketVariable = true;
-  #   };
-  # };
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
 
   system.stateVersion = "23.11";
 }
