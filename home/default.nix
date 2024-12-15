@@ -55,7 +55,6 @@
           sops
           grim
           slurp
-          seahorse
 
           # Libraries and backends
           xfce.thunar-volman
