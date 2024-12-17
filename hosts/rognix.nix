@@ -48,8 +48,21 @@
 
     nvidia = {
       modesetting.enable = true;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      nvidiaSettings = false;
+      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #   version = "550.107.02";
+      #   sha256_64bit = "sha256-+XwcpN8wYCjYjHrtYx+oBhtVxXxMI02FO1ddjM5sAWg=";
+      #   sha256_aarch64 = "sha256-mVEeFWHOFyhl3TGx1xy5EhnIS/nRMooQ3+LdyGe69TQ=";
+      #   openSha256 = "sha256-Po+pASZdBaNDeu5h8sgYgP9YyFAm9ywf/8iyyAaLm+w=";
+      #   settingsSha256 = "sha256-WFZhQZB6zL9d5MUChl2kCKQ1q9SgD0JlP4CMXEwp2jE=";
+      #   persistencedSha256 = "sha256-Vz33gNYapQ4++hMqH3zBB4MyjxLxwasvLzUJsCcyY4k=";
+      # };
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+	      version = "550.135";
+        sha256_64bit = "sha256-ESBH9WRABWkOdiFBpVtCIZXKa5DvQCSke61MnoGHiKk=";
+        settingsSha256 = "sha256-4B61Q4CxDqz/BwmDx6EOtuXV/MNJbaZX+hj/Szo1z1Q=";
+        persistencedSha256 = "sha256-FXKOTLbjhoGbO3q6kRuRbHw2pVUkOYTbTX2hyL/az94=";
+      };
       prime = {
         sync.enable = true;
         nvidiaBusId = "PCI:1:0:0";

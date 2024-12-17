@@ -21,7 +21,10 @@ in
         inherit displays;
         pkgs = import inputs.nixpkgs {
           inherit system;
-          config.allowUnfree = true;
+          config = {
+            allowUnfree = true;
+            nvidia.acceptLicense = true;
+          };
         };
         pkgs-unstable = import inputs.nixpkgs-unstable {
           inherit system;

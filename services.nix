@@ -41,4 +41,7 @@
   security.rtkit.enable = true;
 
   services.blueman.enable = true;
+
+  xdg.portal.enable = true;
+  services.flatpak.enable = true;
 }

@@ -2,6 +2,7 @@
   inputs,
   hostname,
   pkgs,
+  pkgs-unstable,
   system,
   ...
 }:
@@ -72,6 +73,21 @@
 
   programs.dconf.enable = true;
   programs.xwayland.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config = {
+      hyprland.default = [
+        "hyprland"
+        "gtk"
+      ];
+    };
+    configPackages = [
+      pkgs-unstable.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
 
   programs.nix-ld = {
     enable = true;
