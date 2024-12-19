@@ -35,6 +35,7 @@
         tamasfe.even-better-toml
         usernamehw.errorlens
         yoavbls.pretty-ts-errors
+        zxh404.vscode-proto3
       ])
       ++ (with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace-release; []);
     userSettings = {
