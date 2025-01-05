@@ -20,6 +20,7 @@
 
   nix = {
     settings = {
+      auto-optimise-store = true;
       experimental-features = [
         "nix-command"
         "flakes"
@@ -31,18 +32,10 @@
       automatic = true;
       options = "--delete-older-than 14d";
     };
+    optimise.automatic = true;
   };
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = "/etc/nixos";
-    flags = [
-      "--update-input"
-      "nixpkgs"
-      "-L"
-    ];
-    dates = "weekly";
-  };
+
 
   networking.hostName = hostname;
   networking.networkmanager.enable = true;

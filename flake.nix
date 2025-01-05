@@ -5,22 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-ld = {
-      url = "github:nix-community/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    sops-nix.url = "github:Mic92/sops-nix";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-ld.url = "github:nix-community/nix-ld";
 
     hypridle.url = "github:hyprwm/hypridle";
     hyprland = {
@@ -31,10 +19,7 @@
     hyprlock.url = "github:hyprwm/hyprlock";
     hyprpaper.url = "github:hyprwm/hyprpaper";
 
-    opentabletdriver = {
-      url = "github:OpenTabletDriver/opentabletdriver";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    opentabletdriver.url = "github:OpenTabletDriver/opentabletdriver";
   };
 
   outputs =
