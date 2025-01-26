@@ -55,6 +55,9 @@
           sops
           grim
           slurp
+          ripgrep
+          fd
+          unzip
 
           # Libraries and backends
           xfce.thunar-volman
@@ -62,12 +65,15 @@
           # Developer stuff
           deno
           nodejs_22
+          pnpm
           rustup
           gcc
           mongodb-compass
           nixd
           libclang
           insomnia
+          neovim
+          neovide
 
           # Desktop applications
           spotify-qt
@@ -75,6 +81,8 @@
           xfce.thunar
           obsidian
           pkgs-unstable.osu-lazer-bin
+          qbittorrent
+          celluloid
 
           kdePackages.breeze-icons
         ];

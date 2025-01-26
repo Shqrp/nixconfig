@@ -65,6 +65,11 @@
         persistencedSha256 = "sha256-FXKOTLbjhoGbO3q6kRuRbHw2pVUkOYTbTX2hyL/az94=";
       };
     };
+
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
   };
   services.xserver.videoDrivers = [ "nvidia" ];
 
