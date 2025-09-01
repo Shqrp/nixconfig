@@ -18,6 +18,6 @@
       plugins = [ "git" ];
       theme = "gnzh";
     };
-    initExtra = "fastfetch";
+    initContent = "fastfetch";
   };
 }

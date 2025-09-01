@@ -20,16 +20,13 @@
     gdb
     libsForQt5.qt5ct
     kdePackages.qt6ct
+    gnumake
   ];
 
   fonts.packages = with pkgs; [
     fira-code
     jetbrains-mono
-    (nerdfonts.override {
-      fonts = [
-        "FiraCode"
-        "JetBrainsMono"
-      ];
-    })
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
   ];
 }

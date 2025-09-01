@@ -22,7 +22,7 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/341c7460-5227-4dfe-884c-5d3355507070";
+    device = "/dev/disk/by-uuid/99acd982-0710-407c-a676-eaf0e2625483";
     fsType = "ext4";
   };
 
@@ -49,6 +49,8 @@
     nvidia = {
       modesetting.enable = true;
       nvidiaSettings = false;
+      open = false;
+      gsp.enable = false;
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       #   version = "550.107.02";
       #   sha256_64bit = "sha256-+XwcpN8wYCjYjHrtYx+oBhtVxXxMI02FO1ddjM5sAWg=";
@@ -58,10 +60,10 @@
       #   persistencedSha256 = "sha256-Vz33gNYapQ4++hMqH3zBB4MyjxLxwasvLzUJsCcyY4k=";
       # };
       package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-	      version = "550.135";
-        sha256_64bit = "sha256-ESBH9WRABWkOdiFBpVtCIZXKa5DvQCSke61MnoGHiKk=";
-        settingsSha256 = "sha256-4B61Q4CxDqz/BwmDx6EOtuXV/MNJbaZX+hj/Szo1z1Q=";
-        persistencedSha256 = "sha256-FXKOTLbjhoGbO3q6kRuRbHw2pVUkOYTbTX2hyL/az94=";
+	      version = "570.181";
+        sha256_64bit = "sha256-8G0lzj8YAupQetpLXcRrPCyLOFA9tvaPPvAWurjj3Pk=";
+        settingsSha256 = "sha256-U/uqAhf83W/mns/7b2cU26B7JRMoBfQ3V6HiYEI5J48=";
+        persistencedSha256 = "sha256-RoAcutBf5dTKdAfkxDPtMsktFVQt5uPIPtkAkboQwcQ=";
       };
       prime = {
         sync.enable = true;

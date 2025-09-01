@@ -21,12 +21,18 @@
     TTYHangup = true;
     TTYVTDisallocate = true;
   };
+  services.fprintd.enable = true;
 
   services.printing.enable = true;
   services.avahi = {
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
+    publish = {
+      enable = true;
+      userServices = true;
+      domain = true;
+    };
   };
 
   # Audio configuration

@@ -36,6 +36,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
     systemd.enable = true;
     systemd.enableXdgAutostart = true;
     xwayland.enable = true;
@@ -180,20 +181,5 @@
         ", XF86AudioPrevious, exec, playerctl previous"
       ];
     };
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config = {
-      hyprland.default = [
-        "hyprland"
-        "gtk"
-      ];
-    };
-    configPackages = [
-      inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland
-      pkgs.xdg-desktop-portal-gtk
-    ];
   };
 }
