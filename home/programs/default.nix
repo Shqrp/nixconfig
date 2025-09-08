@@ -6,6 +6,7 @@
     ./fastfetch.nix
     ./git.nix
     ./hyprlock.nix
+    ./nvf.nix
     ./tofi.nix
     ./vscode.nix
     ./waybar.nix

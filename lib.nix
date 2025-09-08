@@ -13,19 +13,21 @@ in
         ./hosts/${hostname}.nix
 
         home-manager.nixosModules.home-manager
+        {
+          nixpkgs = {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              nvidia.acceptLicense = true;
+            };
+          };
+        }
       ];
       specialArgs = {
         inherit inputs;
         inherit hostname;
         inherit system;
         inherit displays;
-        pkgs = import inputs.nixpkgs {
-          inherit system;
-          config = {
-            allowUnfree = true;
-            nvidia.acceptLicense = true;
-          };
-        };
         pkgs-unstable = import inputs.nixpkgs-unstable {
           inherit system;
           config.allowUnfree = true;

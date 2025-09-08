@@ -21,6 +21,14 @@
     hyprpaper.url = "github:hyprwm/hyprpaper";
 
     opentabletdriver.url = "github:OpenTabletDriver/opentabletdriver";
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nordic-nvim = {
+      url = "github:AlexvZyl/nordic.nvim";
+      flake = false;
+    };
   };
 
   outputs =

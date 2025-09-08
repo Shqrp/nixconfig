@@ -26,7 +26,10 @@
   services.tumbler.enable = true;
 
   home-manager = {
-    sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
+    sharedModules = [
+      inputs.nvf.homeManagerModules.default
+      inputs.sops-nix.homeManagerModules.sops
+    ];
     useGlobalPkgs = true;
 
     users.shqrp = {
@@ -61,6 +64,7 @@
 
           # Libraries and backends
           xfce.thunar-volman
+          tree-sitter
 
           # Developer stuff
           deno
@@ -76,7 +80,6 @@
           neovide
 
           # Desktop applications
-          spotify-qt
           firefox
           xfce.thunar
           obsidian
