@@ -35,7 +35,10 @@
           css.enable = true;
           tailwind.enable = true;
           lua.enable = true;
-          typst.enable = true;
+          typst = {
+            enable = true;
+            extensions.typst-preview-nvim.enable = true;
+          };
         };
         lsp = {
           enable = true;
@@ -319,6 +322,19 @@
             key = "<leader>bp";
             mode = "n";
             action = ":BufferLinePick<CR>";
+          }
+          {
+            key = "<F11>";
+            mode = [
+              "n"
+              "i"
+              "v"
+              "c"
+              "o"
+              "t"
+              "l"
+            ];
+            action = ":let neovide_fullscreen = !neovide_fullscreen<CR>";
           }
         ];
       };

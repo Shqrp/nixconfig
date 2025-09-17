@@ -76,8 +76,8 @@
           nixd
           libclang
           insomnia
-          neovim
           neovide
+          (typst.withPackages (ps: with ps; [ theorion ]))
 
           # Desktop applications
           firefox
