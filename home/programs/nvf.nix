@@ -9,6 +9,8 @@
     enable = true;
     settings = {
       vim = {
+        preventJunkFiles = false;
+
         extraPackages = with pkgs; [ nixfmt-rfc-style ];
         extraPlugins = {
           nordic = {
@@ -39,6 +41,7 @@
             enable = true;
             extensions.typst-preview-nvim.enable = true;
           };
+          clang.enable = true;
         };
         lsp = {
           enable = true;

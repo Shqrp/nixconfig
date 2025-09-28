@@ -1,6 +1,8 @@
 {
   inputs,
   getDisplay,
+  hostname,
+  lib,
   system,
   ...
 }:
@@ -10,6 +12,13 @@
     enable = true;
     package = inputs.hyprlock.packages.${system}.hyprlock;
     settings = {
+      auth = {
+        fingerprint = lib.mkIf (hostname == "nixpad") {
+          enabled = true;
+          ready_message = "give me your finger";
+          present_message = "this is now my finger";
+        };
+      };
       background = {
         path = "screenshot";
         blur_passes = 1;
@@ -29,9 +38,9 @@
         font_color = "rgb(200,200,200)";
         fade_on_empty = false;
         font_family = "JetBrainsMono Nerd Font Mono Italic";
-        placeholder_text = ''<span foreground="##cdd6f4">Input Password...</span>'';
+        placeholder_text = ''<span foreground="##cdd6f4">input password...</span>'';
         hide_input = false;
-        position = "0, -120";
+        position = "0, -60";
         halign = "center";
         valign = "center";
       };
@@ -39,13 +48,13 @@
       label = [
         {
           monitor = (getDisplay 0).id;
-          text = ''cmd[update:1000] echo "$(date + "%H:%M:%S")"'';
+          text = "$TIME";
           color = "$foreground";
-          font_size = 120;
-          font_family = "JetBrainsMono Nerd Font Mono Italic";
-          position = "0, -300";
+          font_size = 60;
+          font_family = "JetBrainsMono Nerd Font Mono";
+          position = "0, 400";
           halign = "center";
-          valign = "top";
+          valign = "center";
         }
         {
           monitor = (getDisplay 0).id;
@@ -53,7 +62,17 @@
           color = "$foreground";
           font_size = 25;
           font_family = "JetBrainsMono Nerd Font Mono";
-          position = "0, -40";
+          position = "0, 20";
+          halign = "center";
+          valign = "center";
+        }
+        {
+          monitor = (getDisplay 0).id;
+          text = "$FPRINTPROMPT";
+          color = "$foreground";
+          font_size = 13;
+          font_family = "JetBrainsMono Nerd Font Mono";
+          position = "0, -120";
           halign = "center";
           valign = "center";
         }
