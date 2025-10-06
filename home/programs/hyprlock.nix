@@ -13,8 +13,8 @@
     package = inputs.hyprlock.packages.${system}.hyprlock;
     settings = {
       auth = {
-        fingerprint = lib.mkIf (hostname == "nixpad") {
-          enabled = true;
+        fingerprint = {
+          enabled = hostname == "nixpad";
           ready_message = "give me your finger";
           present_message = "this is now my finger";
         };
@@ -66,6 +66,8 @@
           halign = "center";
           valign = "center";
         }
+      ]
+      ++ lib.optionals (hostname == "nixpad") [
         {
           monitor = (getDisplay 0).id;
           text = "$FPRINTPROMPT";

@@ -77,7 +77,14 @@
           libclang
           insomnia
           neovide
-          (typst.withPackages (ps: with ps; [ theorion ]))
+          (typst.withPackages (
+            ps: with ps; [
+              theorion
+              cetz
+              cetz-plot
+            ]
+          ))
+          typstyle
 
           # Desktop applications
           firefox
