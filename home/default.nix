@@ -93,6 +93,7 @@
           pkgs-unstable.osu-lazer-bin
           qbittorrent
           celluloid
+          anki-bin
 
           kdePackages.breeze-icons
         ];
