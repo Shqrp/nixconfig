@@ -18,9 +18,35 @@
     loader.systemd-boot = {
       enable = true;
       configurationLimit = 5;
-      consoleMode = "0";
+      consoleMode = "auto";
+      editor = false;
     };
+
+    plymouth = {
+      enable = true;
+      themePackages = with pkgs; [
+        adi1090x-plymouth-themes
+      ];
+      theme = "cuts_alt";
+    };
+
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "udev.log_priority=3"
+      "rd.systemd.show_status=auto"
+      "vt.global_cursor_default=0"
+    ];
+    consoleLogLevel = 3;
+    initrd = {
+      verbose = false;
+      systemd.enable = true;
+    };
+    loader.timeout = 0;
   };
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
   nix = {
     settings = {

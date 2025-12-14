@@ -50,6 +50,10 @@
   networking.useDHCP = lib.mkDefault true;
 
   hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
     graphics = {
       enable = true;
       enable32Bit = true;

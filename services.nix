@@ -7,7 +7,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = ''${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd "Hyprland 2>&1 > /dev/null"'';
+        command = ''${pkgs.tuigreet}/bin/tuigreet --time --cmd "Hyprland 2>&1 > /dev/null"'';
         user = "greeter";
       };
     };

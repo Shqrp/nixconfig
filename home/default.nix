@@ -16,6 +16,7 @@
       "wheel"
       "audio"
       "networkmanager"
+      "docker"
     ];
     description = "Andrea Giurgola";
     ignoreShellProgramCheck = true;
@@ -51,52 +52,58 @@
           name = "graphite-light-nord";
         };
 
-        packages = with pkgs; [
-          # Utilities
-          hyprpicker
-          nixfmt-rfc-style
-          sops
-          grim
-          slurp
-          ripgrep
-          fd
-          unzip
+        packages =
+          with pkgs;
+          [
+            # Utilities
+            hyprpicker
+            nixfmt-rfc-style
+            sops
+            grim
+            slurp
+            ripgrep
+            fd
+            unzip
+            freerdp
 
-          # Libraries and backends
-          xfce.thunar-volman
-          tree-sitter
+            # Libraries and backends
+            xfce.thunar-volman
+            tree-sitter
 
-          # Developer stuff
-          deno
-          nodejs_22
-          pnpm
-          rustup
-          gcc
-          mongodb-compass
-          nixd
-          libclang
-          insomnia
-          neovide
-          (typst.withPackages (
-            ps: with ps; [
-              theorion
-              cetz
-              cetz-plot
-            ]
-          ))
-          typstyle
+            # Developer stuff
+            deno
+            nodejs_22
+            pnpm
+            rustup
+            gcc
+            mongodb-compass
+            nixd
+            libclang
+            insomnia
+            neovide
+            (pkgs-unstable.typst.withPackages (
+              ps: with ps; [
+                itemize
+                theorion
+                cetz
+                cetz-plot
+              ]
+            ))
+            typstyle
 
-          # Desktop applications
-          firefox
-          xfce.thunar
-          obsidian
-          pkgs-unstable.osu-lazer-bin
-          qbittorrent
-          celluloid
-          anki-bin
+            # Desktop applications
+            firefox
+            xfce.thunar
+            obsidian
+            pkgs-unstable.osu-lazer-bin
+            qbittorrent
+            celluloid
+            anki-bin
 
-          kdePackages.breeze-icons
-        ];
+            kdePackages.breeze-icons
+          ]
+          ++ lib.optionals (hostname == "nixpad") [
+          ];
       };
 
       imports = [

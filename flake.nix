@@ -2,11 +2,11 @@
   description = "shqrp's nixos";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     sops-nix.url = "github:Mic92/sops-nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-ld.url = "github:nix-community/nix-ld";

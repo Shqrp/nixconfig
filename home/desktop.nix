@@ -42,9 +42,11 @@
     xwayland.enable = true;
 
     settings = {
-      monitor =
-        [ "${(getDisplay 0).id},${(getDisplay 0).width}x${(getDisplay 0).height},0x0,1" ]
-        ++ lib.optional (builtins.length displays == 2)
+      monitor = [
+        "${(getDisplay 0).id},${(getDisplay 0).width}x${(getDisplay 0).height},0x0,1"
+      ]
+      ++
+        lib.optional (builtins.length displays == 2)
           "${(getDisplay 1).id},${(getDisplay 1).width}x${(getDisplay 1).height},${(getDisplay 0).width}x0,1";
 
       env = [
@@ -111,7 +113,7 @@
         force_default_wallpaper = 0;
       };
 
-      layerrule = "blur, launcher";
+      layerrule = "blur on, match:class launcher";
 
       # device = {
       #   name = "epic-mouse-v1";
