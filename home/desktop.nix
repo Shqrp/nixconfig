@@ -114,8 +114,8 @@
       };
 
       layerrule = [
-        "blur on, match:class launcher"
-        "blur off, match:class bottom"
+        "blur on, match:namespace launcher"
+        "blur off, match:namespace waybar"
       ];
 
       # device = {
