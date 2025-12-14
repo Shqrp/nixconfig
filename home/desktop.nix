@@ -113,7 +113,10 @@
         force_default_wallpaper = 0;
       };
 
-      layerrule = "blur on, match:class launcher";
+      layerrule = [
+        "blur on, match:class launcher"
+        "blur off, match:class bottom"
+      ];
 
       # device = {
       #   name = "epic-mouse-v1";
