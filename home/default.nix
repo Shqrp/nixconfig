@@ -35,6 +35,10 @@
     useGlobalPkgs = true;
 
     users.shqrp = {
+      xdg.autostart.enable = true;
+      xdg.autostart.entries = [
+        "${pkgs-unstable.librepods}/share/applications/me.kavishdevar.librepods.desktop"
+      ];
       home = {
         username = "shqrp";
         homeDirectory = "/home/shqrp";

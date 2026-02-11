@@ -65,7 +65,7 @@
         "${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
         "hyprctl setcursor graphite-light-nord 24"
         "${pkgs.xfce.thunar}/bin/thunar --daemon"
-        "${pkgs.blueman}/bin/blueman-applet"
+        "${pkgs.dex}/bin/dex -a"
       ];
 
       input.kb_layout = "it";
