@@ -20,7 +20,6 @@
     hyprlock.url = "github:hyprwm/hyprlock";
     hyprpaper.url = "github:hyprwm/hyprpaper";
 
-    opentabletdriver.url = "github:OpenTabletDriver/opentabletdriver";
     nvf = {
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,15 +44,19 @@
           hostname = "ryzenix";
           displays = [
             {
-              id = "HDMI-A-1";
-              width = "1920";
-              height = "1080";
-            }
-            {
               id = "DP-1";
               width = "1920";
               height = "1200";
             }
+            {
+              id = "HDMI-A-1";
+              width = "1920";
+              height = "1080";
+            }
+          ];
+          displayConfig = [
+            "DP-1, 1920x1200@60, 1920x0, 1"
+            "HDMI-A-1, 1920x1200@60, 0x0, 1"
           ];
         };
         rognix = lib.mkHost {
@@ -64,6 +67,15 @@
               width = "1920";
               height = "1080";
             }
+            {
+              id = "HDMI-A-1";
+              width = "1920";
+              height = "1080";
+            }
+          ];
+          displayConfig = [
+            "eDP-1, 1920x1080@60, 0x0, 1"
+            "HDMI-A-1, 1920x1080@60, 1920x0, 1"
           ];
         };
         nixpad = lib.mkHost {
@@ -74,6 +86,15 @@
               width = "1920";
               height = "1200";
             }
+            {
+              id = "HDMI-A-1";
+              width = "1920";
+              height = "1080";
+            }
+          ];
+          displayConfig = [
+            "eDP-1, 1920x1200@60, 0x0, 1"
+            "HDMI-A-1, 1920x1080@60, 1920x0, 1"
           ];
         };
       };

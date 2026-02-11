@@ -5,6 +5,7 @@
   system,
   hostname,
   displays,
+  displayConfig,
   ...
 }:
 
@@ -43,6 +44,7 @@
           NIXOS_OZONE_WL = 1;
           ELECTRON_OZONE_PLATFORM_HINT = "auto";
           LD_LIBRARY_PATH = "${pkgs.libGL}/lib";
+          SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
         };
 
         pointerCursor = {
@@ -65,6 +67,7 @@
             fd
             unzip
             freerdp
+            pkgs-unstable.librepods
 
             # Libraries and backends
             xfce.thunar-volman
@@ -99,6 +102,10 @@
             qbittorrent
             celluloid
             anki-bin
+            (mathematica.override {
+              source = ../bin/Wolfram_14.3.0_LIN_Bndl.sh;
+              version = "14.3.0";
+            })
 
             kdePackages.breeze-icons
           ]
@@ -124,6 +131,7 @@
         inherit hostname;
         inherit displays;
         inherit getDisplay;
+        inherit displayConfig;
         inherit pkgs-unstable;
       };
   };

@@ -2,8 +2,8 @@
   inputs,
   pkgs,
   lib,
-  displays,
-  getDisplay,
+  displayConfig,
+  hostname,
   system,
   ...
 }:
@@ -42,25 +42,21 @@
     xwayland.enable = true;
 
     settings = {
-      monitor = [
-        "${(getDisplay 0).id},${(getDisplay 0).width}x${(getDisplay 0).height},0x0,1"
-      ]
-      ++
-        lib.optional (builtins.length displays == 2)
-          "${(getDisplay 1).id},${(getDisplay 1).width}x${(getDisplay 1).height},${(getDisplay 0).width}x0,1";
-
+      monitor = displayConfig;
       env = [
         "GDK_BACKEND,wayland,x11"
         "SDL_VIDEODRIVER,wayland,x11"
         "CLUTTER_BACKEND,wayland"
         "QT_QPA_PLATFORM,wayland;xcb"
-        "LIBVA_DRIVER_NAME,nvidia"
-        "GBM_BACKEND,nvidia-drm"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         "WLR_NO_HARDWARE_CURSORS,1"
+        "PROTON_ENABLE_NGX_UPDATER,1"
+      ]
+      ++ lib.optional (hostname == "ryzenix" || hostname == "rognix") [
         "__NV_PRIME_RENDER_OFFLOAD,1"
         "__VK_LAYER_NV_optimus,NVIDIA_only"
-        "PROTON_ENABLE_NGX_UPDATER,1"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "GBM_BACKEND,nvidia-drm"
+        "LIBVA_DRIVER_NAME,nvidia"
         "NVD_BACKEND,direct"
       ];
 
@@ -73,6 +69,10 @@
       ];
 
       input.kb_layout = "it";
+      device = {
+        name = "tpps/2-elan-trackpoint";
+        disable_while_typing = true;
+      };
 
       general = {
         border_size = 2;
@@ -177,6 +177,8 @@
       bindle = [
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 5%+"
         ", XF86AudioLowerVolume, exec, wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
+        ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
       ];
 
       bindl = [
