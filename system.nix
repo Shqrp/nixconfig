@@ -119,7 +119,6 @@
   hardware.opentabletdriver = {
     enable = true;
     daemon.enable = true;
-    package = inputs.opentabletdriver.packages.${system}.default;
   };
 
   virtualisation = {

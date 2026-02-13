@@ -5,7 +5,11 @@ let
 in
 {
   mkHost =
-    { hostname, displays }:
+    {
+      hostname,
+      displays,
+      displayConfig,
+    }:
     inputs.nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
@@ -28,6 +32,7 @@ in
         inherit hostname;
         inherit system;
         inherit displays;
+        inherit displayConfig;
         pkgs-unstable = import inputs.nixpkgs-unstable {
           inherit system;
           config.allowUnfree = true;

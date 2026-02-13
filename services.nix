@@ -7,7 +7,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = ''${pkgs.tuigreet}/bin/tuigreet --time --cmd "Hyprland 2>&1 > /dev/null"'';
+        command = ''${pkgs.tuigreet}/bin/tuigreet --time --cmd "start-hyprland 2>&1 > /dev/null"'';
         user = "greeter";
       };
     };
@@ -47,6 +47,8 @@
   security.rtkit.enable = true;
 
   services.blueman.enable = true;
+
+  services.tailscale.enable = true;
 
   xdg.portal.enable = true;
   services.flatpak.enable = true;
