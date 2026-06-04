@@ -29,6 +29,7 @@
 
   home-manager = {
     sharedModules = [
+      inputs.mangowm.hmModules.mango
       inputs.nvf.homeManagerModules.default
       inputs.sops-nix.homeManagerModules.sops
     ];
@@ -72,6 +73,8 @@
             unzip
             freerdp
             pkgs-unstable.librepods
+            moodle-dl
+            localsend
 
             # Libraries and backends
             xfce.thunar-volman
@@ -94,12 +97,14 @@
                 theorion
                 cetz
                 cetz-plot
+                zero
               ]
             ))
             typstyle
 
             # Desktop applications
             firefox
+            inputs.zen-browser.packages.${system}.default
             xfce.thunar
             obsidian
             pkgs-unstable.osu-lazer-bin

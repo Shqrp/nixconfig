@@ -10,6 +10,7 @@
     ./tofi.nix
     ./vscode.nix
     ./waybar.nix
+    ./zed.nix
     ./zsh.nix
   ];
 
