@@ -1,15 +1,24 @@
 {
+  config,
   inputs,
   pkgs,
+  lib,
   ...
 }:
 
 {
+  home.file."${config.xdg.configHome}/nvf/spell/it.utf-8.spl".source = builtins.fetchurl {
+    url = "http://ftp.nluug.nl/vim/runtime/spell/it.utf-8.spl";
+    sha256 = "04vlmri8fsza38w7pvkslyi3qrlzyb1c3f0a1iwm6vc37s8361yq";
+
+  };
+
   programs.nvf = {
     enable = true;
     settings = {
       vim = {
         preventJunkFiles = false;
+        options.backupdir = "${config.xdg.configHome}/.local/state/nvf/backup//";
 
         extraPackages = with pkgs; [ nixfmt-rfc-style ];
         extraPlugins = {
@@ -30,18 +39,18 @@
 
           rust.enable = true;
           nix.enable = true;
-          ts.enable = true;
+          typescript.enable = true;
           astro.enable = true;
           python.enable = true;
           html.enable = true;
           css.enable = true;
-          tailwind.enable = true;
           lua.enable = true;
           typst = {
             enable = true;
             extensions.typst-preview-nvim.enable = true;
           };
           clang.enable = true;
+          kotlin.enable = true;
         };
         lsp = {
           enable = true;
@@ -53,7 +62,35 @@
             listReferences = "<leader>lrr";
             renameSymbol = "<leader>lrs";
           };
+          servers.protols = {
+            cmd = [ (lib.getExe pkgs.protols) ];
+            filetypes = [ "proto" ];
+          };
+          servers.clangd.filetypes = lib.mkForce [
+            "c"
+            "cpp"
+            "objc"
+            "objcpp"
+            "cuda"
+            "h"
+            "hpp"
+          ];
+          presets.tailwindcss-language-server.enable = true;
         };
+        # Customized spellcheck setup, inspired from NVF
+        augroups = [ { name = "typstmd_spellcheck"; } ];
+        autocmds = [
+          {
+            event = [ "FileType" ];
+            group = "typstmd_spellcheck";
+            desc = "Activate spellcheck on Typst and Markdown files";
+            pattern = [
+              "markdown"
+              "typst"
+            ];
+            command = "setlocal spell spelllang=en,it";
+          }
+        ];
         treesitter = {
           context.enable = true;
           fold = true;
@@ -251,7 +288,7 @@
         };
 
         utility.motion.precognition = {
-          enable = true;
+          enable = false;
           setupOpts.disabled_fts = [ "dashboard" ];
         };
 

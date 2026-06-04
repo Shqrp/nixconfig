@@ -5,6 +5,7 @@
   displayConfig,
   hostname,
   system,
+  getDisplay,
   ...
 }:
 
@@ -26,20 +27,108 @@
     platformTheme.name = "qt6ct";
   };
   home.sessionVariables = {
-    QT_QPA_PLATFORM = "wayland";
+    GDK_BACKEND = "wayland,x11";
+    SDL_VIDEODRIVER = "wayland,x11";
+    CLUTTER_BACKEND = "wayland";
+    QT_QPA_PLATFORM = "wayland;xcb";
+    WLR_NO_HARDWARE_CURSORS = "1";
+  }
+  // lib.attrsets.optionalAttrs (hostname == "ryzenix" || hostname == "rognix") {
+    PROTON_ENABLE_NGX_UPDATER = "1";
+    __NV_PRIME_RENDER_OFFLOAD = "1";
+    __VK_LAYER_NV_optimus = "NVIDIA_only";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    GBM_BACKEND = "nvidia-drm";
+    LIBVA_DRIVER_NAME = "nvidia";
+    NVD_BACKEND = "direct";
   };
 
   dconf.settings = {
     "org/gnome/desktop/interface".color-scheme = "prefer-dark";
   };
 
+  # wayland.windowManager.mango = {
+  #   enable = true;
+  #   systemd = {
+  #     enable = true;
+  #     xdgAutostart = true;
+  #   };
+  #
+  #   settings =
+  #     let
+  #       display0 = getDisplay 0;
+  #       display1 = getDisplay 1;
+  #     in
+  #     ''
+  #       exec-once=${pkgs.wlr-randr}/bin/wlr-randr --output Unknown-1 --off"
+  #       exec-once=${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit
+  #       exec-once=${pkgs.xfce.thunar}/bin/thunar --daemon
+  #
+  #       monitorrule=name:${display0.id}
+  #
+  #       bind=SUPER,f,killclient
+  #       bind=SUPER,m,quit
+  #       bind=SUPER,z,togglefloating
+  #       bind=SUPER,x,togglefullscreen
+  #
+  #       bind=SUPER,s,spawn,alacritty
+  #       bind=SUPER,a,spawn,thunar
+  #       bind=SUPER+SHIFT,s,spawn,grim -g "$(slurp)" "/home/shqrp/Screenshots/$(date +%Y-%m-%d %R:%S).png"
+  #       bind=SUPER,d,spawn,tofi-drun --drun-launch=false | zsh
+  #       bind=SUPER,c,spawn,hyprpicker -a
+  #
+  #       bind=SUPER,left,focusdir,left
+  #       bind=SUPER,right,focusdir,right
+  #       bind=SUPER,up,focusdir,up
+  #       bind=SUPER,down,focusdir,down
+  #       bind=SUPER+SHIFT,left,exchange_client,left
+  #       bind=SUPER+SHIFT,right,exchange_client,right
+  #       bind=SUPER+SHIFT,up,exchange_client,up
+  #       bind=SUPER+SHIFT,down,exchange_client,down
+  #
+  #       bind=SUPER,1,view,1
+  #       bind=SUPER,2,view,2
+  #       bind=SUPER,3,view,3
+  #       bind=SUPER,4,view,4
+  #       bind=SUPER,q,view,5
+  #       bind=SUPER,w,view,6
+  #       bind=SUPER,e,view,7
+  #       bind=SUPER,r,view,8
+  #       bind=SUPER,code:49,view,9
+  #       bind=SUPER+SHIFT,1,tag,1
+  #       bind=SUPER+SHIFT,2,tag,2
+  #       bind=SUPER+SHIFT,3,tag,3
+  #       bind=SUPER+SHIFT,4,tag,4
+  #       bind=SUPER+SHIFT,q,tag,5
+  #       bind=SUPER+SHIFT,w,tag,6
+  #       bind=SUPER+SHIFT,e,tag,7
+  #       bind=SUPER+SHIFT,r,tag,8
+  #       bind=SUPER+SHIFT,code:49,tag,9
+  #       bind=SUPER,code:112,viewtoleft
+  #       bind=SUPER,code:117,viewtoright
+  #       mousebind=SUPER,btn_left,movewin,curmove
+  #       mousebind=SUPER,btn_right,resizewin,curresize
+  #
+  #       bindl=NONE,XF86MonBrightnessUp,spawn,${pkgs.brightnessctl}/bin/brightnessctl set +5%
+  #       bindl=NONE,XF86MonBrightnessDown,spawn,${pkgs.brightnessctl}/bin/brightnessctl set -5%
+  #       bindl=NONE,XF86AudioRaiseVolume,spawn,wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ +5%
+  #       bindl=NONE,XF86AudioLowerVolume,spawn,wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 5%-
+  #       bindl=NONE,XF86AudioMute,spawn,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+  #       bindl=NONE,XF86AudioPlay,spawn,playerctl play-pause
+  #       bindl=NONE,XF86AudioNext,spawn,playerctl next
+  #       bindl=NONE,XF86AudioPrevious,spawn,playerctl previous
+  #
+  #
+  #
+  #     '';
+  # };
+
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
+    package = null;
+    portalPackage = null;
     systemd.enable = true;
     systemd.enableXdgAutostart = true;
-    xwayland.enable = true;
 
     settings = {
       monitor = displayConfig;
@@ -62,10 +151,13 @@
 
       exec-once = [
         "${pkgs.wlr-randr}/bin/wlr-randr --output Unknown-1 --off" # disables weird Unknown-1 display
-        "${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
+        "${
+          inputs.hyprpolkitagent.packages.${system}.default
+        }/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
         "hyprctl setcursor graphite-light-nord 24"
         "${pkgs.xfce.thunar}/bin/thunar --daemon"
-        "${pkgs.dex}/bin/dex -a"
+        "${pkgs.localsend}/bin/localsend_app --hidden"
+        # "${pkgs.dex}/bin/dex -a"
       ];
 
       input.kb_layout = "it";
@@ -78,6 +170,7 @@
         border_size = 2;
         "col.active_border" = "rgb(d8dee9) rgb(eceff4) 45deg";
         "col.inactive_border" = "rgb(4c566a)";
+        layout = "dwindle";
       };
 
       decoration = {
@@ -103,7 +196,6 @@
       };
 
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
       };
 
@@ -135,7 +227,7 @@
         "$mainMod, Z, togglefloating,"
         "$mainMod, D, exec, tofi-drun --drun-launch=false | zsh"
         "$mainMod, P, pseudo,"
-        "$mainMod, J, togglesplit,"
+        "$mainMod, J, layoutmsg, togglesplit,"
         "$mainMod, C, exec, hyprpicker -a"
 
         "$mainMod, left, movefocus, l"

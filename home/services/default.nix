@@ -6,6 +6,7 @@
     ./hyprpaper.nix
     ./keyring.nix
     ./mako.nix
+    ./moodle-dl.nix
     ./spotifyd.nix
   ];
 

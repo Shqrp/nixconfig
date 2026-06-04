@@ -11,23 +11,29 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-ld.url = "github:nix-community/nix-ld";
 
-    hypridle.url = "github:hyprwm/hypridle";
-    hyprland = {
-      type = "git";
-      url = "https://github.com/hyprwm/Hyprland";
-      submodules = true;
-    };
-    hyprlock.url = "github:hyprwm/hyprlock";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
-
-    nvf = {
-      url = "github:NotAShelf/nvf";
+    mangowm = {
+      url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hypridle.url = "github:hyprwm/hypridle";
+    # hyprland = {
+    #   type = "git";
+    #   url = "github:hyprwm/Hyprland";
+    #   submodules = true;
+    # };
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprlock.url = "github:hyprwm/hyprlock";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
+    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
+
+    nvf.url = "github:NotAShelf/nvf";
     nordic-nvim = {
       url = "github:AlexvZyl/nordic.nvim";
       flake = false;
     };
+
+    zen-browser.url = "github:youwen5/zen-browser-flake";
   };
 
   outputs =
@@ -47,11 +53,13 @@
               id = "DP-1";
               width = "1920";
               height = "1200";
+              main = true;
             }
             {
               id = "HDMI-A-1";
               width = "1920";
               height = "1080";
+              main = false;
             }
           ];
           displayConfig = [
@@ -66,11 +74,13 @@
               id = "eDP-1";
               width = "1920";
               height = "1080";
+              main = true;
             }
             {
               id = "HDMI-A-1";
               width = "1920";
               height = "1080";
+              main = false;
             }
           ];
           displayConfig = [
@@ -85,11 +95,13 @@
               id = "eDP-1";
               width = "1920";
               height = "1200";
+              main = true;
             }
             {
               id = "HDMI-A-1";
               width = "1920";
               height = "1080";
+              main = false;
             }
           ];
           displayConfig = [
