@@ -6,7 +6,7 @@
 }:
 
 {
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
     package = pkgs-unstable.vscodium-fhs;
     profiles = {

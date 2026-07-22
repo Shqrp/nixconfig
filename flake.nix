@@ -2,11 +2,11 @@
   description = "shqrp's nixos";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     sops-nix.url = "github:Mic92/sops-nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-ld.url = "github:nix-community/nix-ld";
@@ -17,11 +17,6 @@
     };
 
     hypridle.url = "github:hyprwm/hypridle";
-    # hyprland = {
-    #   type = "git";
-    #   url = "github:hyprwm/Hyprland";
-    #   submodules = true;
-    # };
     hyprland.url = "github:hyprwm/Hyprland";
     hyprlock.url = "github:hyprwm/hyprlock";
     hyprpaper.url = "github:hyprwm/hyprpaper";

@@ -20,7 +20,7 @@
         preventJunkFiles = false;
         options.backupdir = "${config.xdg.configHome}/.local/state/nvf/backup//";
 
-        extraPackages = with pkgs; [ nixfmt-rfc-style ];
+        extraPackages = with pkgs; [ nixfmt ];
         extraPlugins = {
           nordic = {
             package = pkgs.vimUtils.buildVimPlugin {
@@ -242,7 +242,7 @@
             left = "";
             right = "";
           };
-          disabledFiletypes = [ "dashboard" ];
+          disabledFiletypes.statusline = [ "dashboard" ];
         };
         notify.nvim-notify = {
           enable = true;

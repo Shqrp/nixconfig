@@ -8,7 +8,7 @@
     ./hyprlock.nix
     ./nvf.nix
     ./tofi.nix
-    ./vscode.nix
+    ./vscodium.nix
     ./waybar.nix
     ./zed.nix
     ./zsh.nix
