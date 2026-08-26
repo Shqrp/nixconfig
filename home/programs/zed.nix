@@ -43,6 +43,9 @@
       code_lens = "on";
       soft_wrap = "editor_width";
 
+      # Languages
+      languages."Nix".language_servers = [ "nixd" "!nil" ];
+
       # Window & Layout
       title_bar.show_menus = true;
       tabs = {

@@ -12,6 +12,7 @@
 {
   gtk = {
     enable = true;
+    gtk4.theme = null;
     theme = {
       name = "Nordic";
       package = pkgs.nordic;
@@ -127,6 +128,7 @@
     enable = true;
     package = null;
     portalPackage = null;
+    configType = "hyprlang";
     systemd.enable = true;
     systemd.enableXdgAutostart = true;
 
@@ -155,7 +157,7 @@
           inputs.hyprpolkitagent.packages.${system}.default
         }/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
         "hyprctl setcursor graphite-light-nord 24"
-        "${pkgs.xfce.thunar}/bin/thunar --daemon"
+        "${pkgs.thunar}/bin/thunar --daemon"
         "${pkgs.localsend}/bin/localsend_app --hidden"
         # "${pkgs.dex}/bin/dex -a"
       ];
@@ -206,8 +208,8 @@
       };
 
       layerrule = [
-        "blur on, match:namespace launcher"
-        "blur off, match:namespace waybar"
+        "blur on, match:class launcher"
+        "blur off, match:class bottom"
       ];
 
       # device = {

@@ -64,7 +64,7 @@
           [
             # Utilities
             hyprpicker
-            nixfmt-rfc-style
+            nixfmt
             sops
             grim
             slurp
@@ -77,7 +77,7 @@
             localsend
 
             # Libraries and backends
-            xfce.thunar-volman
+            thunar-volman
             tree-sitter
 
             # Developer stuff
@@ -105,7 +105,7 @@
             # Desktop applications
             firefox
             inputs.zen-browser.packages.${system}.default
-            xfce.thunar
+            thunar
             obsidian
             pkgs-unstable.osu-lazer-bin
             qbittorrent
