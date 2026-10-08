@@ -15,12 +15,11 @@
       url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    hypridle.url = "github:hyprwm/hypridle";
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprlock.url = "github:hyprwm/hyprlock";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
-    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
+    hypr.url = "github:hyprwm/hyprnix";
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nvf.url = "github:NotAShelf/nvf";
     nordic-nvim = {
@@ -32,11 +31,12 @@
   };
 
   outputs =
-    { home-manager, ... }@inputs:
+    { home-manager, noctalia-greeter, ... }@inputs:
     let
       lib = import ./lib.nix {
         inherit inputs;
         inherit home-manager;
+        inherit noctalia-greeter;
       };
     in
     {
@@ -48,13 +48,13 @@
               id = "DP-1";
               width = "1920";
               height = "1200";
-              main = true;
+              offset = "1920x0";
             }
             {
               id = "HDMI-A-1";
               width = "1920";
               height = "1080";
-              main = false;
+              offset = "0x0";
             }
           ];
           displayConfig = [
@@ -69,13 +69,13 @@
               id = "eDP-1";
               width = "1920";
               height = "1080";
-              main = true;
+              offset = "0x0";
             }
             {
               id = "HDMI-A-1";
               width = "1920";
               height = "1080";
-              main = false;
+              offset = "1920x0";
             }
           ];
           displayConfig = [
@@ -90,13 +90,13 @@
               id = "eDP-1";
               width = "1920";
               height = "1200";
-              main = true;
+              offset = "0x0";
             }
             {
               id = "HDMI-A-1";
               width = "1920";
               height = "1080";
-              main = false;
+              offset = "1920x0";
             }
           ];
           displayConfig = [

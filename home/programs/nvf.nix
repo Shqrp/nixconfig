@@ -18,7 +18,10 @@
     settings = {
       vim = {
         preventJunkFiles = false;
-        options.backupdir = "${config.xdg.configHome}/.local/state/nvf/backup//";
+        options = {
+          backupdir = "${config.xdg.configHome}/.local/state/nvf/backup//";
+          foldlevelstart = 99;
+        };
 
         extraPackages = with pkgs; [ nixfmt ];
         extraPlugins = {
@@ -180,69 +183,71 @@
 
         statusline.lualine = {
           enable = true;
-          theme = "auto";
+          integrations.breadcrumbs.nvim-navic.enable = true;
 
-          activeSection = {
-            a = [
-              ''
-                {
-                  "mode",
-                  icons_enabled = true,
-                }
-              ''
-            ];
-            b = [
-              ''
-                {
-                  "filetype",
-                  { icon_only = true },
-                  "filename"
-                }
-              ''
-            ];
-            c = [
-              ''
-                {
-                  "diagnostics",
-                  sources = { "nvim_lsp" },
-                  symbols = { error = "", warn = "", info = ""},
-                  diagnostics_color = {
-                    error = { fg = "#bf616a" },
-                    warn = { fg = "#ebcb8b" },
-                    info = { fg = "#5e81ac" }
+          setupOpts = {
+            options.theme = "auto";
+            sections = {
+              lualine_a = map lib.generators.mkLuaInline [
+                ''
+                  {
+                    "mode",
+                    icons_enabled = true,
                   }
-                }
-              ''
-            ];
-            x = [
-              ''
-                {
-                  "lsp_status"
-                }
-              ''
-            ];
-            y = [
-              ''
-                {
-                  "branch"
-                }
-              ''
-            ];
-            z = [
-              ''
-                {
-                  "location",
-                  "progress"
-                }
-              ''
-            ];
-
+                ''
+              ];
+              lualine_b = map lib.generators.mkLuaInline [
+                ''
+                  {
+                    "filetype",
+                    { icon_only = true },
+                    "filename"
+                  }
+                ''
+              ];
+              lualine_c = map lib.generators.mkLuaInline [
+                ''
+                  {
+                    "diagnostics",
+                    sources = { "nvim_lsp" },
+                    symbols = { error = "", warn = "", info = ""},
+                    diagnostics_color = {
+                      error = { fg = "#bf616a" },
+                      warn = { fg = "#ebcb8b" },
+                      info = { fg = "#5e81ac" }
+                    }
+                  }
+                ''
+              ];
+              lualine_x = map lib.generators.mkLuaInline [
+                ''
+                  {
+                    "lsp_status"
+                  }
+                ''
+              ];
+              lualine_y = map lib.generators.mkLuaInline [
+                ''
+                  {
+                    "branch"
+                  }
+                ''
+              ];
+              lualine_z = map lib.generators.mkLuaInline [
+                ''
+                  {
+                    "location",
+                    "progress"
+                  }
+                ''
+              ];
+            };
+            sectionSeparator = {
+              left = "";
+              right = "";
+            };
+            disabledFiletypes.statusline = [ "dashboard" ];
           };
-          sectionSeparator = {
-            left = "";
-            right = "";
-          };
-          disabledFiletypes.statusline = [ "dashboard" ];
         };
         notify.nvim-notify = {
           enable = true;
@@ -269,7 +274,7 @@
         };
 
         ui = {
-          breadcrumbs.enable = true;
+
           colorful-menu-nvim.enable = true;
           colorizer.enable = true;
           modes-nvim.enable = true;

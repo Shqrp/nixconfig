@@ -36,10 +36,8 @@
     useGlobalPkgs = true;
 
     users.shqrp = {
-      xdg.autostart.enable = true;
-      xdg.autostart.entries = [
-        "${pkgs-unstable.librepods}/share/applications/me.kavishdevar.librepods.desktop"
-      ];
+      xdg.autostart.enable = false;
+      xdg.autostart.entries = [];
       home = {
         username = "shqrp";
         homeDirectory = "/home/shqrp";
@@ -63,7 +61,7 @@
           with pkgs;
           [
             # Utilities
-            hyprpicker
+            inputs.hypr.packages.${system}.hyprpicker
             nixfmt
             sops
             grim
@@ -112,8 +110,14 @@
             celluloid
             anki-bin
             (mathematica.override {
-              source = ../bin/Wolfram_14.3.0_LIN_Bndl.sh;
-              version = "14.3.0";
+              source = ../bin/Wolfram_15.0.1.sh;
+              versionInfo = {
+                version = "15.0.1";
+                lang = "en";
+                language = "English";
+                hash = "sha256-VzK8CuOhk4sOO5CL4z3rfpY5631F2RN6c0Dh8cExeeg=";
+                installer = "Wolfram_15.0.1.sh";
+              };
             })
 
             kdePackages.breeze-icons

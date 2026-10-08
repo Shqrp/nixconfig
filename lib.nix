@@ -1,4 +1,8 @@
-{ inputs, home-manager }:
+{
+  inputs,
+  home-manager,
+  noctalia-greeter,
+}:
 
 let
   system = "x86_64-linux";
@@ -17,6 +21,7 @@ in
         ./hosts/${hostname}.nix
 
         home-manager.nixosModules.home-manager
+        noctalia-greeter.nixosModules.default
         {
           nixpkgs = {
             inherit system;
@@ -27,16 +32,21 @@ in
           };
         }
       ];
-      specialArgs = {
-        inherit inputs;
-        inherit hostname;
-        inherit system;
-        inherit displays;
-        inherit displayConfig;
-        pkgs-unstable = import inputs.nixpkgs-unstable {
+      specialArgs =
+        let
+          getDisplay = index: builtins.elemAt displays index;
+        in
+        {
+          inherit inputs;
+          inherit hostname;
           inherit system;
-          config.allowUnfree = true;
+          inherit displays;
+          inherit displayConfig;
+          inherit getDisplay;
+          pkgs-unstable = import inputs.nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
         };
-      };
     };
 }

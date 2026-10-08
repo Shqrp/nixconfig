@@ -10,7 +10,7 @@
 {
   services.hyprpaper = {
     enable = true;
-    package = inputs.hyprpaper.packages.${system}.hyprpaper;
+    package = inputs.hypr.packages.${system}.hyprpaper;
     settings = {
       preload = [
         "/etc/nixos/wallpapers/display0.png"

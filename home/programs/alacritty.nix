@@ -31,9 +31,12 @@
         white = "#ECEFF4";
       };
 
-      window.padding = {
-        x = 10;
-        y = 10;
+      window = {
+        opacity = 0.5;
+        padding = {
+          x = 10;
+          y = 10;
+        };
       };
 
       font.normal = {

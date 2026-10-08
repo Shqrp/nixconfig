@@ -10,7 +10,7 @@
 {
   programs.hyprlock = {
     enable = true;
-    package = inputs.hyprlock.packages.${system}.hyprlock;
+    package = inputs.hypr.packages.${system}.hyprlock;
     settings = {
       auth = {
         fingerprint = {

@@ -2,10 +2,9 @@
   inputs,
   pkgs,
   lib,
-  displayConfig,
+  displays,
   hostname,
   system,
-  getDisplay,
   ...
 }:
 
@@ -128,159 +127,196 @@
     enable = true;
     package = null;
     portalPackage = null;
-    configType = "hyprlang";
     systemd.enable = true;
     systemd.enableXdgAutostart = true;
+    configType = "lua";
 
     settings = {
-      monitor = displayConfig;
-      env = [
-        "GDK_BACKEND,wayland,x11"
-        "SDL_VIDEODRIVER,wayland,x11"
-        "CLUTTER_BACKEND,wayland"
-        "QT_QPA_PLATFORM,wayland;xcb"
-        "WLR_NO_HARDWARE_CURSORS,1"
-        "PROTON_ENABLE_NGX_UPDATER,1"
-      ]
-      ++ lib.optional (hostname == "ryzenix" || hostname == "rognix") [
-        "__NV_PRIME_RENDER_OFFLOAD,1"
-        "__VK_LAYER_NV_optimus,NVIDIA_only"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "GBM_BACKEND,nvidia-drm"
-        "LIBVA_DRIVER_NAME,nvidia"
-        "NVD_BACKEND,direct"
+      monitor = map (d: {
+        output = d.id;
+        mode = "${d.width}x${d.height}@60";
+        position = d.offset;
+        scale = 1;
+      }) displays;
+
+      env = map (kv: { _args = kv; }) [
+        [ "GDK_BACKEND" "wayland,x11" ]
+        [ "SDL_VIDEODRIVER" "wayland,x11" ]
+        [ "CLUTTER_BACKEND" "wayland" ]
+        [ "QT_QPA_PLATFORM" "wayland;xcb" ]
+        [ "WLR_NO_HARDWARE_CURSORS" "1" ]
+        [ "PROTON_ENABLE_NGX_UPDATER" "1" ]
+      ] ++ lib.lists.optionals (hostname == "ryzenix" || hostname == "rognix") [
+        [ "__NV_PRIME_RENDER_OFFLOAD" "1" ]
+        [ "__VK_LAYER_NV_optimus" "NVIDIA_only" ]
+        [ "__GLX_VENDOR_LIBRARY_NAME" "nvidia" ]
+        [ "GBM_BACKEND" "nvidia-drm" ]
+        [ "LIBVA_DRIVER_NAME" "nvidia" ]
+        [ "NVD_BACKEND" "direct" ]
       ];
 
-      exec-once = [
-        "${pkgs.wlr-randr}/bin/wlr-randr --output Unknown-1 --off" # disables weird Unknown-1 display
-        "${
-          inputs.hyprpolkitagent.packages.${system}.default
-        }/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
-        "hyprctl setcursor graphite-light-nord 24"
-        "${pkgs.thunar}/bin/thunar --daemon"
-        "${pkgs.localsend}/bin/localsend_app --hidden"
-        # "${pkgs.dex}/bin/dex -a"
-      ];
-
-      input.kb_layout = "it";
       device = {
         name = "tpps/2-elan-trackpoint";
         disable_while_typing = true;
       };
 
-      general = {
-        border_size = 2;
-        "col.active_border" = "rgb(d8dee9) rgb(eceff4) 45deg";
-        "col.inactive_border" = "rgb(4c566a)";
-        layout = "dwindle";
-      };
-
-      decoration = {
-        rounding = 10;
-        blur = {
-          passes = 1;
-        };
-        shadow = {
-          color = "rgba(1a1a1aee)";
-        };
-      };
-
-      animations = {
-        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-        animation = [
-          "windows, 1, 7, myBezier"
-          "windowsOut, 1, 7, default, popin 80%"
-          "border, 1, 10, default"
-          "borderangle, 1, 8, default"
-          "fade, 1, 7, default"
-          "workspaces, 1, 6, default"
+      curve = {
+        _args = [
+          "bez"
+          {
+            type = "bezier";
+            points = [
+              [
+                0.05
+                0.9
+              ]
+              [
+                0.1
+                1.05
+              ]
+            ];
+          }
         ];
       };
+      animation = [
+        {
+          leaf = "windows";
+          enabled = true;
+          speed = 7;
+          bezier = "bez";
+        }
+        {
+          leaf = "windowsOut";
+          enabled = true;
+          speed = 7;
+          bezier = "bez";
+          style = "popin 80%";
+        }
+        {
+          leaf = "border";
+          enabled = true;
+          speed = 10;
+          bezier = "bez";
+        }
+        {
+          leaf = "borderangle";
+          enabled = true;
+          speed = 8;
+          bezier = "bez";
+        }
+        {
+          leaf = "fade";
+          enabled = true;
+          speed = 7;
+          bezier = "bez";
+        }
+        {
+          leaf = "workspaces";
+          enabled = true;
+          speed = 6;
+          bezier = "bez";
+        }
+      ];
 
-      dwindle = {
-        preserve_split = true;
+      config = {
+        input.kb_layout = "it";
+
+        general = {
+          border_size = 2;
+          col = {
+            active_border = {
+              colors = [
+                "#d8dee9"
+                "#eceff4"
+              ];
+              angle = 45;
+            };
+            inactive_border = "#4c566a";
+          };
+        };
+
+        decoration = {
+          rounding = 10;
+          blur = {
+            passes = 10;
+            # variant = "acrylic";
+            size = 16;
+          };
+          shadow.color = "#1a1a1aee";
+        };
+
+        dwindle.smart_split = true;
+
+        misc = {
+          disable_hyprland_logo = true;
+          disable_splash_rendering = true;
+          disable_watchdog_warning = true;
+          force_default_wallpaper = 0;
+        };
+
+        layer_rule = [
+          {
+            match.class = "launcher";
+            blur = true;
+          }
+          {
+            match.class = "bottom";
+            blur = false;
+          }
+        ];
       };
-
-      misc = {
-        disable_hyprland_logo = true;
-        disable_splash_rendering = true;
-        force_default_wallpaper = 0;
-      };
-
-      layerrule = [
-        "blur on, match:class launcher"
-        "blur off, match:class bottom"
-      ];
-
-      # device = {
-      #   name = "epic-mouse-v1";
-      #   sensitivity = -0.5;
-      # };
-
-      "$mainMod" = "SUPER";
-
-      bind = [
-        "$mainMod, S, exec, alacritty"
-        "$mainMod, A, exec, thunar"
-        "$mainMod SHIFT, S, exec, grim -g \"$(slurp)\" \"/home/shqrp/Screenshots/$(date +%Y-%m-%d\\ %R:%S).png\""
-
-        "$mainMod, Q, killactive"
-        "$mainMod, M, exit,"
-        "$mainMod, Z, togglefloating,"
-        "$mainMod, D, exec, tofi-drun --drun-launch=false | zsh"
-        "$mainMod, P, pseudo,"
-        "$mainMod, J, layoutmsg, togglesplit,"
-        "$mainMod, C, exec, hyprpicker -a"
-
-        "$mainMod, left, movefocus, l"
-        "$mainMod, right, movefocus, r"
-        "$mainMod, up, movefocus, u"
-        "$mainMod, down, movefocus, d"
-
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
-        "$mainMod, 3, workspace, 3"
-        "$mainMod, 4, workspace, 4"
-        "$mainMod, 5, workspace, 5"
-        "$mainMod, 6, workspace, 6"
-        "$mainMod, 7, workspace, 7"
-        "$mainMod, 8, workspace, 8"
-        "$mainMod, 9, workspace, 9"
-        "$mainMod, 0, workspace, 10"
-
-        "$mainMod SHIFT, 1, movetoworkspace, 1"
-        "$mainMod SHIFT, 2, movetoworkspace, 2"
-        "$mainMod SHIFT, 3, movetoworkspace, 3"
-        "$mainMod SHIFT, 4, movetoworkspace, 4"
-        "$mainMod SHIFT, 5, movetoworkspace, 5"
-        "$mainMod SHIFT, 6, movetoworkspace, 6"
-        "$mainMod SHIFT, 7, movetoworkspace, 7"
-        "$mainMod SHIFT, 8, movetoworkspace, 8"
-        "$mainMod SHIFT, 9, movetoworkspace, 9"
-        "$mainMod SHIFT, 0, movetoworkspace, 10"
-
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
-      ];
-
-      bindm = [
-        "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:273, resizewindow"
-      ];
-
-      bindle = [
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 5%-"
-        ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
-        ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
-      ];
-
-      bindl = [
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrevious, exec, playerctl previous"
-      ];
     };
+    extraConfig = ''
+      hl.on("hyprland.start", function()
+        hl.exec_cmd("${pkgs.wlr-randr}/bin/wlr-randr --output Unknown-1 --off")
+        hl.exec_cmd("${
+          inputs.hypr.packages.${system}.hyprpolkitagent
+        }/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit")
+        hl.exec_cmd("hyprctl setcursor graphite-light-nord 24")
+        hl.exec_cmd("${pkgs.thunar}/bin/thunar --daemon")
+        hl.exec_cmd("${pkgs.localsend}/bin/localsend_app --hidden")
+        hl.exec_cmd("${pkgs.librepods}/bin/librepods --hide")
+      end)
+
+      hl.bind("SUPER + S", hl.dsp.exec_cmd("alacritty"))
+      hl.bind("SUPER + A", hl.dsp.exec_cmd("thunar"))
+      hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("grim -g \"$(slurp)\" \"/home/shqrp/Screenshots/$(date +%Y-%m-%d\\ %R:%S).png\""))
+
+      hl.bind("SUPER + Q", hl.dsp.window.kill())
+      hl.bind("SUPER + M", hl.dsp.exit())
+      hl.bind("SUPER + Z", hl.dsp.window.float({ action = "toggle" }))
+      hl.bind("SUPER + D", hl.dsp.exec_cmd("tofi-drun --drun-launch=false | zsh"))
+      hl.bind("SUPER + P", hl.dsp.window.pseudo())
+      hl.bind("SUPER + J", hl.dsp.layout("togglesplit"))
+      hl.bind("SUPER + C", hl.dsp.exec_cmd("hyprpicker -a"))
+
+      hl.bind("SUPER + left", hl.dsp.focus({ direction = "l" }))
+      hl.bind("SUPER + right", hl.dsp.focus({ direction = "r" }))
+      hl.bind("SUPER + up", hl.dsp.focus({ direction = "u" }))
+      hl.bind("SUPER + down", hl.dsp.focus({ direction = "d" }))
+
+      for i = 1, 9 do
+        hl.bind("SUPER + " .. i, hl.dsp.focus({ workspace = i }))
+        hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
+      end
+      hl.bind("SUPER + 0", hl.dsp.focus({ workspace = 10 }))
+      hl.bind("SUPER + SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
+
+      hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+      hl.bind("SUPER + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+
+      hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
+      hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+      hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
+      hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
+      hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("${pkgs.brightnessctl}/bin/brightnessctl set +5%"), { locked = true, repeating = true })
+      hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("${pkgs.brightnessctl}/bin/brightnessctl set 5%-"), { locked = true, repeating = true })
+
+      hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
+      hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+      hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+      hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+    '';
   };
 }

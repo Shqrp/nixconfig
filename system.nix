@@ -2,7 +2,6 @@
   inputs,
   hostname,
   pkgs,
-  pkgs-unstable,
   system,
   ...
 }:
@@ -125,8 +124,8 @@
   };
   programs.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
+    package = inputs.hypr.packages.${system}.hyprland;
+    portalPackage = inputs.hypr.packages.${system}.xdg-desktop-portal-hyprland;
     xwayland.enable = true;
   };
 

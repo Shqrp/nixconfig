@@ -3,12 +3,10 @@
 {
   services.hypridle = {
     enable = true;
-    package = inputs.hypridle.packages.${system}.hypridle;
+    package = inputs.hypr.packages.${system}.hypridle;
     settings = {
       general = {
-        lock_cmd = "pidof hyprlock || hyprlock";
-        before_sleep_cmd = "loginctl lock-session";
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+        lock_cmd = "loginctl lock-session";
       };
 
       listener = [
