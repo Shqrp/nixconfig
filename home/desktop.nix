@@ -139,7 +139,7 @@
         scale = 1;
       }) displays;
 
-      env = map (kv: { _args = kv; }) [
+      env = map (kv: { _args = kv; }) ([
         [ "GDK_BACKEND" "wayland,x11" ]
         [ "SDL_VIDEODRIVER" "wayland,x11" ]
         [ "CLUTTER_BACKEND" "wayland" ]
@@ -153,7 +153,7 @@
         [ "GBM_BACKEND" "nvidia-drm" ]
         [ "LIBVA_DRIVER_NAME" "nvidia" ]
         [ "NVD_BACKEND" "direct" ]
-      ];
+      ]);
 
       device = {
         name = "tpps/2-elan-trackpoint";

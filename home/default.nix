@@ -3,9 +3,8 @@
   pkgs-unstable,
   inputs,
   system,
-  hostname,
   displays,
-  displayConfig,
+  hostname,
   ...
 }:
 
@@ -37,7 +36,7 @@
 
     users.shqrp = {
       xdg.autostart.enable = false;
-      xdg.autostart.entries = [];
+      xdg.autostart.entries = [ ];
       home = {
         username = "shqrp";
         homeDirectory = "/home/shqrp";
@@ -144,7 +143,6 @@
         inherit hostname;
         inherit displays;
         inherit getDisplay;
-        inherit displayConfig;
         inherit pkgs-unstable;
       };
   };

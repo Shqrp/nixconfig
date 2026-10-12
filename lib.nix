@@ -12,7 +12,6 @@ in
     {
       hostname,
       displays,
-      displayConfig,
     }:
     inputs.nixpkgs.lib.nixosSystem {
       inherit system;
@@ -41,7 +40,6 @@ in
           inherit hostname;
           inherit system;
           inherit displays;
-          inherit displayConfig;
           inherit getDisplay;
           pkgs-unstable = import inputs.nixpkgs-unstable {
             inherit system;

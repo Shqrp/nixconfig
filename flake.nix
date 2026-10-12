@@ -51,15 +51,11 @@
               offset = "1920x0";
             }
             {
-              id = "HDMI-A-1";
+              id = "DP-3";
               width = "1920";
-              height = "1080";
+              height = "1200";
               offset = "0x0";
             }
-          ];
-          displayConfig = [
-            "DP-1, 1920x1200@60, 1920x0, 1"
-            "HDMI-A-1, 1920x1200@60, 0x0, 1"
           ];
         };
         rognix = lib.mkHost {
@@ -78,10 +74,6 @@
               offset = "1920x0";
             }
           ];
-          displayConfig = [
-            "eDP-1, 1920x1080@60, 0x0, 1"
-            "HDMI-A-1, 1920x1080@60, 1920x0, 1"
-          ];
         };
         nixpad = lib.mkHost {
           hostname = "nixpad";
@@ -98,10 +90,6 @@
               height = "1080";
               offset = "1920x0";
             }
-          ];
-          displayConfig = [
-            "eDP-1, 1920x1200@60, 0x0, 1"
-            "HDMI-A-1, 1920x1080@60, 1920x0, 1"
           ];
         };
       };
