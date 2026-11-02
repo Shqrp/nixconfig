@@ -98,6 +98,8 @@
               ]
             ))
             typstyle
+            lua-language-server
+            python314Packages.python-lsp-server
 
             # Desktop applications
             firefox
@@ -118,6 +120,8 @@
                 installer = "Wolfram_15.0.1.sh";
               };
             })
+            vis
+            pkgs-unstable.rustdesk
 
             kdePackages.breeze-icons
           ]

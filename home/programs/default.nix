@@ -8,9 +8,10 @@
     ./hyprlock.nix
     ./nvf.nix
     ./tofi.nix
-    ./vscodium.nix
+    ./vis.nix
+    # ./vscodium.nix
     ./waybar.nix
-    ./zed.nix
+    # ./zed.nix
     ./zsh.nix
   ];
 

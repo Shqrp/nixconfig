@@ -4,10 +4,10 @@
   imports = [
     ./hypridle.nix
     ./hyprpaper.nix
-    ./keyring.nix
-    ./mako.nix
+    # ./keyring.nix
+    # ./mako.nix
     ./moodle-dl.nix
-    ./spotifyd.nix
+    # ./spotifyd.nix
   ];
 
   services.ssh-agent.enable = true;

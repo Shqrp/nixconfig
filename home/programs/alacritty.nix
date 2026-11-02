@@ -32,7 +32,7 @@
       };
 
       window = {
-        opacity = 0.5;
+        opacity = 0.85;
         padding = {
           x = 10;
           y = 10;
@@ -55,6 +55,8 @@
         family = "JetBrains Mono Nerd Font";
         style = "Bold Italic";
       };
+
+      keyboard.bindings = [{ key = "F11"; action = "ToggleFullscreen"; }];
     };
   };
 }

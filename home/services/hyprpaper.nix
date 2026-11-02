@@ -27,6 +27,8 @@
         monitor = (getDisplay 1).id;
         path = "/etc/nixos/wallpapers/display1.png";
       };
+
+      splash = false;
     };
   };
 }
