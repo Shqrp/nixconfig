@@ -1,4 +1,4 @@
-{ hostname, ... }:
+{ pkgs, hostname, ... }:
 
 {
   programs.zsh = {
@@ -20,6 +20,11 @@
       plugins = [ "git" ];
       theme = "gnzh";
     };
-    initContent = "fastfetch";
+    initContent = ''
+        if [[ -z "$DEVENV_ROOT" ]]; then
+            eval "$(${pkgs.devenv}/bin/devenv hook zsh)"
+        fi
+        fastfetch
+    '';
   };
 }

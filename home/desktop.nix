@@ -142,6 +142,11 @@
         }
       ];
 
+      window_rule = {
+        match.class = "Alacritty";
+        xray = true;
+      };
+
       config = {
         input.kb_layout = "it";
 
@@ -163,8 +168,16 @@
           rounding = 10;
           blur = {
           	enabled = true;
-          	size = 16;
-          	passes = 4;
+          	size = 6;
+          	passes = 2;
+          	xray = false;
+          	contrast = 1.0;
+          	brightness = 0.75;
+          	noise = 0.01;
+          	vibrancy = 0.25;
+          	vibrancy_darkness = 0.25;
+          	popups = true;
+          	special = true;
           };
           shadow.color = "#1a1a1aee";
         };
@@ -177,17 +190,6 @@
           disable_watchdog_warning = true;
           force_default_wallpaper = 0;
         };
-
-        # layer_rule = [
-        #   {
-        #     match.class = "launcher";
-        #     blur = true;
-        #   }
-        #   {
-        #     match.class = "bottom";
-        #     blur = false;
-        #   }
-        # ];
       };
     };
     extraConfig = ''

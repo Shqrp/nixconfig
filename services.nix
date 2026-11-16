@@ -1,4 +1,4 @@
-{ pkgs, getDisplay, ... }:
+{ pkgs, getDisplay, lib, ... }:
 
 {
   # Authentication stuff
@@ -49,9 +49,11 @@
   #   TTYHangup = true;
   #   TTYVTDisallocate = true;
   # };
-  services.fprintd.enable = true;
 
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    startWhenNeeded = true;
+  };
   services.avahi = {
     enable = true;
     nssmdns4 = true;
@@ -62,6 +64,8 @@
       domain = true;
     };
   };
+
+  services.fwupd.enable = true;
 
   # Audio configuration
   # sound.enable = true;
@@ -77,6 +81,8 @@
   services.blueman.enable = true;
 
   services.tailscale.enable = true;
+  systemd.services.tailscaled.wantedBy = lib.mkForce [ "greetd.service" ];
+  systemd.services.NetworkManager.wantedBy = lib.mkForce [ "greetd.service" ];
 
   xdg.portal.enable = true;
   services.flatpak.enable = true;

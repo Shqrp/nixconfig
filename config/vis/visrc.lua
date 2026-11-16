@@ -1,59 +1,62 @@
-require('vis')
+require("vis")
 
 --- Plugins
 
-local plug_path = (os.getenv('XDG_CONFIG_HOME') or os.getenv('HOME') .. '/.config') .. '/vis/plugins/vis-plug'
-if not pcall(require, 'plugins/vis-plug') then
+local plug_path = (os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config") .. "/vis/plugins/vis-plug"
+if not pcall(require, "plugins/vis-plug") then
 	os.execute('git clone --quiet https://github.com/erf/vis-plug "' .. plug_path .. '"')
 end
 local plug = require("plugins/vis-plug")
+require("plugins/filetype")
 
 local plugins = {
 	--- LSP
-	{ 'codeberg.org/muhq/vis-lspc',        alias = "lsp" },
+	{ "codeberg.org/muhq/vis-lspc",        alias = "lsp" },
 
 	--- UI
-	{ 'codeberg.org/wf/vis-paw',           alias = "panel" },
-	{ 'thimc/vis-colorizer',               alias = "colors",  ref = "0d67d0f809d1779c5a01fc5a58c045608238ee93" },
+	{ "codeberg.org/wf/vis-paw",           alias = "panel" },
+	{ "thimc/vis-colorizer",               alias = "colors",  ref = "0d67d0f809d1779c5a01fc5a58c045608238ee93" },
 
 	--- Editing
-	{ 'codeberg.org/luxanna/vis-autoclose' },
-	{ 'Nomarian/vis-commentary',           alias = "comments" },
-	{ 'Nomarian/vis-tab-autoconf' },
+	{ "codeberg.org/luxanna/vis-autoclose" },
+	{ "Nomarian/vis-commentary",           alias = "comments" },
+	{ "Nomarian/vis-tab-autoconf" },
 
 	--- Themes
-	{ 'przmv/base16-vis',                  theme = true,      file = 'base16-nord' }
+	{ "przmv/base16-vis",                  theme = true,      file = "base16-nord" }
 }
 plug.init(plugins, true)
 
 --- Language configuration
 
-vis.ftdetect.filetypes.nix.ext = { '%.nix$' }
-vis.ftdetect.filetypes.qml.ext = { '%.qml$' }
-vis.ftdetect.filetypes.typst.ext = { '%.typ$' }
+vis.ftdetect.filetypes.nix = { ext = { "%.nix$" } }
+vis.ftdetect.filetypes.qml = { ext = { "%.qml$" } }
+vis.ftdetect.filetypes.typst = { ext = { "%.typ$" } }
 
 plug.plugins.lsp.ls_map.nix = {
 	name = "nixd",
-	cmd = "${pkgs.nixd}/bin/nixd",
+	cmd = "nixd",
 	roots = { "flake.nix", "flake.lock" },
 }
 plug.plugins.lsp.ls_map.qml = {
 	name = "qmlls",
-	cmd = "${pkgs.kdePackages.qtdeclarative}/bin/qmlls",
+	cmd = "qmlls",
 }
 plug.plugins.lsp.ls_map.typst = {
 	name = "tinymist",
-	cmd = "${pkgs.tinymist}/bin/tinymist",
+	cmd = "tinymist",
 }
 
-plug.plugins.comments.comments_repl.nix = '#'
-plug.plugins.comments.comments_repl.typst = '//'
-plug.plugins.comments.comments_repl.qml = '//'
+plug.plugins.comments.comments_repl.nix = "#"
+plug.plugins.comments.comments_repl.typst = "//"
+plug.plugins.comments.comments_repl.qml = "//"
 
 --- Options
 
 vis.options.autoindent = true
 vis.options.shell = "/home/shqrp/.nix-profile/bin/zsh"
+
+plug.plugins.lsp.highlight_diagnostics = "range"
 
 plug.plugins.panel.config = {
 	style_normal = "back:#2e3440,fore:#81a1c1",
@@ -65,14 +68,14 @@ plug.plugins.panel.config = {
 	separator_right = " | ",
 
 	modules_left = {
-		'mode',
-		'file'
+		"mode",
+		"file"
 	},
 	modules_right = {
-		'flags',
-		'syntax',
-		'percent',
-		'progress'
+		"flags",
+		"syntax",
+		"percent",
+		"progress"
 	}
 }
 
@@ -117,7 +120,8 @@ vis.events.subscribe(vis.events.INIT, function()
 end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function()
-	vis:command("set showeof false")
+	vis:command("set expandtab on")
 	vis:command("set tabwidth 4")
+	vis:command("set showeof false")
 	vis:command("set relativenumbers true")
 end)

@@ -17,6 +17,7 @@
       "audio"
       "networkmanager"
       "docker"
+      "libvirtd"
     ];
     description = "Andrea Giurgola";
     ignoreShellProgramCheck = true;
@@ -100,6 +101,9 @@
             typstyle
             lua-language-server
             python314Packages.python-lsp-server
+            tinymist
+            kdePackages.qtdeclarative # for qmlls
+            pkgs-unstable.devenv
 
             # Desktop applications
             firefox
@@ -111,7 +115,7 @@
             celluloid
             anki-bin
             (mathematica.override {
-              source = ../bin/Wolfram_15.0.1.sh;
+              # source = ../bin/Wolfram_15.0.1.sh;
               versionInfo = {
                 version = "15.0.1";
                 lang = "en";

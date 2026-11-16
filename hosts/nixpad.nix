@@ -10,6 +10,9 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    "${inputs.nixos-hardware}/common/wifi/mediatek/mt7925"
+    "${inputs.nixos-hardware}/common/wifi/mediatek/mt7925/iwd.nix"
   ];
 
   boot.initrd.availableKernelModules = [
@@ -25,6 +28,9 @@
     "acpi_backlight=native"
   ];
   boot.extraModulePackages = [ ];
+
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/5bde3ebc-d13c-4dd8-ab0b-a8ac225cd02a";
@@ -48,6 +54,11 @@
   services.fprintd.enable = true;
 
   networking.useDHCP = lib.mkDefault true;
+  networking.networkmanager.unmanaged = [ "lo" "tailscale0" "docker0" ];
+  systemd.services.iwd = {
+    after = [ "sys-subsystem-net-devices-wlan0.device" ];
+    wants = [ "sys-subsystem-net-devices-wlan0.device" ];
+  };
 
   hardware = {
     bluetooth = {

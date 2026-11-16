@@ -3,6 +3,7 @@
   hostname,
   pkgs,
   system,
+  lib,
   ...
 }:
 
@@ -46,6 +47,7 @@
   };
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
+  systemd.settings.Manager.DefaultLimitNOFILE = "4096:524288";
 
   nix = {
     settings = {
@@ -57,14 +59,17 @@
       substituters = [
         "https://hyprland.cachix.org"
         "https://nvf.cachix.org"
+        "https://devenv.cachix.org" 
       ];
       trusted-substituters = [
         "https://hyprland.cachix.org"
         "https://nvf.cachix.org"
+        "https://devenv.cachix.org"
       ];
       trusted-public-keys = [
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
     };
     gc = {
@@ -82,6 +87,16 @@
     firewall.allowedTCPPorts = [ 53317 ];
     firewall.allowedUDPPorts = [ 53317 ];
     firewall.checkReversePath = false;
+  };
+  systemd.services.NetworkManager = {
+    wants = lib.mkForce [];
+    after = lib.mkForce [ "network-pre.target" "dbus.service" ];
+  };
+  systemd.services.NetworkManager-wait-online.enable = false;
+  networking.wireless.iwd.settings.General.AddressRandomization = lib.mkForce "disabled";
+  networking.networkmanager = {
+    wifi.macAddress = "preserve";
+    wifi.scanRandMacAddress = false;
   };
 
   time.timeZone = "Europe/Rome";
@@ -140,9 +155,13 @@
   };
 
   virtualisation = {
-    libvirtd.enable = true;
+    libvirtd = {
+        enable = true;
+        onBoot = "ignore";
+    };
     docker = {
       enable = true;
+      enableOnBoot = false;
       rootless = {
         enable = true;
         setSocketVariable = true;
@@ -150,6 +169,7 @@
     };
   };
   programs.virt-manager.enable = true;
+  systemd.services.libvirtd.wantedBy = lib.mkForce [];
 
   system.stateVersion = "23.11";
 }
